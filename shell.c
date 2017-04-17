@@ -18,12 +18,12 @@ void tuberias(char* argumento1[MAX], char* argumento2[MAX]);
 void CrearProceso(char* argumento[MAX], int plano);
 
 
-/* La funci�n principal main contiene el bucle que se ejecutar� de forma cont�nua hasta que
+/* La funcion principal main contiene el bucle que se ejecutara de forma continua hasta que
 el usuario escriba FIN en el terminal.Recibe una cadena, la analiza, y a partir de las
-funciones que hemos creado, har� lo que debe de hacer */
+funciones que hemos creado, hara lo que debe de hacer */
 
 int main(int argc, char *argv[])
-{ /* INICIO DE LA FUNCI�N main */
+{ /* INICIO DE LA FUNCION main */
 char cadena[MAX];
 char cadFin[]="FIN";
 int fin=0,i,segplano=0, guardaStdout = dup(1), guardaStdin = dup(0);
@@ -31,11 +31,11 @@ int fin=0,i,segplano=0, guardaStdout = dup(1), guardaStdin = dup(0);
 while(fin==0)
 	{
         close(1); /* Cierro la salida que tenga, caso de haber guardado algo en un fichero
-                 ser� el fichero*/
-        dup(guardaStdout); // Asigno la salida est�ndar, es decir, la consola.
+                 sera el fichero*/
+        dup(guardaStdout); // Asigno la salida estandar, es decir, la consola.
         close(0); /* Cierro la salida que tenga, caso de haber guardado algo en un fichero
-                 ser� el fichero*/
-        dup(guardaStdin); // Asigno la salida est�ndar, es decir, la consola.
+                 sera el fichero*/
+        dup(guardaStdin); // Asigno la salida estandar, es decir, la consola.
 	printf(PROMPT); // Imprimimos el prompt
 	scanf("\n%[^\n]",cadena); // Escaneamos la cadena entera hasta que pulsa intro
 	segplano=0;
@@ -46,17 +46,17 @@ while(fin==0)
 					}
 						}
 	fin=CadIguales(cadena,cadFin); // Comparamos si la cadena es fin, en tal caso sale
-	Comando(cadena,segplano); // Y si no es fin, entra en la funci�n Comando
+	Comando(cadena,segplano); // Y si no es fin, entra en la funcion Comando
 	}
 
 exit(0);//finaliza el programa (cadena 'FIN' introducida)
 
 return(0);
-} /* FIN DE LA FUNCI�N main */
+} /* FIN DE LA FUNCION main */
 
-/* Con esta funci�n compararemos la cadena que introduce el usuario, con FIN,
-en caso de ser iguales, saldr� del programa, de lo contrario devolver� 0  y el programa
-seguir� en ejecuci�n */
+/* Con esta funcion compararemos la cadena que introduce el usuario, con FIN,
+en caso de ser iguales, saldra del programa, de lo contrario devolvera 0  y el programa
+seguira en ejecucion */
 
 int CadIguales(char cadena1[],char cadena2[])
 {//inicio del CadIguales
@@ -69,7 +69,7 @@ return(igual);
 }//fin CadIguales
 
 void Comando(char cadena[MAX], int plano)
-{ /* INICIO DE LA FUNCI�N COMANDO */
+{ /* INICIO DE LA FUNCION COMANDO */
 int i,j,k,flag_tuberia;
 char argumentoInd[MAX][MAX];
 char argumentoInd2[MAX][MAX];
@@ -93,16 +93,16 @@ flag_tuberia = 0;
 								argumentoInd[k][j] = cadena[i];
 								i++;}
 
-					 /* Comprobamos si la cadena sali� del bucle por encontrar un espacio...
-					 en tal caso se incrementa la i, ya que sino entrar�a en un bucle
+					 /* Comprobamos si la cadena salir del bucle por encontrar un espacio...
+					 en tal caso se incrementa la i, ya que sino entraria en un bucle
 					 infinito*/
 					 if (cadena[i] == ' ') i++;
 
-					/* Asignamos el terminador de cadena a cada comando que es le�do */
+					/* Asignamos el terminador de cadena a cada comando que es leido */
 					argumentoInd[k][j] = '\0';
 
 					/* Y finalmente una vez creada la cadena, se la pasamos al puntero
-					argumento que ser� el que se ejecute con la funci�n execvp */
+					argumento que sera el que se ejecute con la funcion execvp */
 					argumento[k] = argumentoInd[k];
 					k++;
 					if (cadena[i] == '<') { /* INICIO DEL IF */
@@ -121,11 +121,11 @@ flag_tuberia = 0;
 
 					} /* FIN DEL WHILE */
 
-		argumento[k] = NULL; // Asignamos NULL al �ltimo comando a ejecutar para el EXECV
+		argumento[k] = NULL; // Asignamos NULL al ultimo comando a ejecutar para el EXECV
 
-		/* Si encuentra una tuber�a, entrar� en el IF y separar� el segundo comando de la
-		misma forma que se hizo con el primero, y finalmente llamar� a la funci�n tuberias,
-		pas�ndole los 2 argumentos como par�metros */
+		/* Si encuentra una tuberia, entrara en el IF y separara el segundo comando de la
+		misma forma que se hizo con el primero, y finalmente llamara a la funcion tuberias,
+		pasandole los 2 argumentos como parametros */
 
 		if (cadena[i] == '|') {/* INICIO DE IF */
 			k=0;
@@ -149,7 +149,7 @@ flag_tuberia = 0;
 		}/* FIN DE IF */
 
 
-		/* Si encuentra un > cortar� la cadena que ser� el fichero que quiere utilizar
+		/* Si encuentra un > cortara la cadena que sera el fichero que quiere utilizar
 		para la salida */
 		//
 		if (cadena[i] == '>') {/* INICIO DE IF */
@@ -166,9 +166,9 @@ flag_tuberia = 0;
 		}/* FIN DE IF */
 
 		/* Comprobamos si la variable ejecutar tiene valor 0 o 1, si tiene valor 0
-		el programa se ejecutar� correctamente, si tiene valor 1 significa que
+		el programa se ejecutara correctamente, si tiene valor 1 significa que
 		mientras analizaba alguna de las cadenas ha encontrado un error de sintaxis
-		y mostrar� en pantalla un mensaje de error. */
+		y mostrara en pantalla un mensaje de error. */
 
 		if(ejecutar == 0) {
 					if (flag_tuberia==0) CrearProceso(argumento,plano);
@@ -177,48 +177,48 @@ flag_tuberia = 0;
 				  }
 		else printf( MSJ_ERROR );
 
-}/* FIN DE LA FUNCI�N COMANDO */
+}/* FIN DE LA FUNCION COMANDO */
 
-/* Con esta funci�n si el usuario introduce quiere cambiar la entrada est�ndar
-( el teclado ) por lo que hay en un fichero, podr� hacerlo mediante el s�mbolo
+/* Con esta funcion si el usuario introduce quiere cambiar la entrada estandar
+( el teclado ) por lo que hay en un fichero, podra hacerlo mediante el simbolo
 "<", por ejemplo: wc < fichero */
 
 void redirecEntrada(char cadena[MAX])
 
-{ /* INICIO DE LA FUNCI�N redirecEntrada */
+{ /* INICIO DE LA FUNCION redirecEntrada */
   char *cadenaPtr;
   int fd;
   cadenaPtr = cadena; // Puntero a la cadena
   fd = open (cadenaPtr,O_RDONLY); // Asigno a la salida el fichero
-  close (0); // Cierro la salida est�ndar
+  close (0); // Cierro la salida estandar
   dup(fd);
 
 
-} /* FIN DE LA FUNCI�N redirecEntrada */
+} /* FIN DE LA FUNCION redirecEntrada */
 
-/* Con esta funci�n si el usuario introduce una redirecci�n de salida a un
-fichero, en lugar de mostrar el comando en pantalla, lo guardar� en fichero
+/* Con esta funcion si el usuario introduce una redireccion de salida a un
+fichero, en lugar de mostrar el comando en pantalla, lo guardara en fichero
 por ejemplo: man -k file > lista.file */
 
 void redirecSalida(char cadena[MAX])
 
-{ /* INICIO DE LA FUNCI�N redirecSalida */
+{ /* INICIO DE LA FUNCION redirecSalida */
   char *cadenaPtr;
   cadenaPtr = cadena; // Puntero a la cadena
-  close (1); // Cierro la salida est�ndar
+  close (1); // Cierro la salida estandar
   open (cadenaPtr,O_CREAT | O_WRONLY,0777); // Asigno a la salida el fichero
 
-} /* FIN DE LA FUNCI�N redirecSalida */
+} /* FIN DE LA FUNCION redirecSalida */
 
 
-/* Con esta funci�n en el caso de que haya tuber�as ( se ejecuten dos comandos
-concatenados) por ejemplo: ls -la | sort , recibir� como par�metro argumento1 y
-argumento2 de tipo puntero a cadena de cadena de caracteres y crear� un hijo que
-ser� el encargado de ejecutar los 2 comandos pasados por tuber�a.*/
+/* Con esta funcion en el caso de que haya tuberias ( se ejecuten dos comandos
+concatenados) por ejemplo: ls -la | sort , recibira como parametro argumento1 y
+argumento2 de tipo puntero a cadena de cadena de caracteres y creara un hijo que
+sera el encargado de ejecutar los 2 comandos pasados por tuberia.*/
 
 void tuberias(char* argumento1[MAX], char* argumento2[MAX])
 
-{ /* INICIO DE LA FUNCI�N tuberias */
+{ /* INICIO DE LA FUNCION tuberias */
   int fd[2],estado;
 	pid_t hijo;
 	hijo=fork();
@@ -226,7 +226,7 @@ void tuberias(char* argumento1[MAX], char* argumento2[MAX])
 
 	if (hijo==-1) printf("ERROR Creacion de proceso");
 	else if (hijo==0) {
-		   pipe(&fd[0]); /* Funci�n pipe encargada de crear la tuber�a */
+		   pipe(&fd[0]); /* Funcion pipe encargada de crear la tuberia */
    			if (fork()!=0) {
       				close(fd[0]); /* cerramos el lado de lectura del pipe */
       				close(1);
@@ -246,24 +246,24 @@ void tuberias(char* argumento1[MAX], char* argumento2[MAX])
   				 }
 		   }
 	else  hijo=wait(&estado);
-} /* FIN DE LA FUNCI�N tuberias */
+} /* FIN DE LA FUNCION tuberias */
 
 
-/* Con esta funci�n en el caso de que no haya tuber�as y sea un s�lo comando a ejecutar,
-por ejemplo: ls -la , recibir� como par�metro el argumento de tipo puntero a cadena
-de cadena de caracteres, crear� un hijo para que el comando execvp no finalice el
-programa y en definitiva ejecutar� el comando que le pedimos.*/
+/* Con esta funcion en el caso de que no haya tuberias y sea un salo comando a ejecutar,
+por ejemplo: ls -la , recibira como parametro el argumento de tipo puntero a cadena
+de cadena de caracteres, creara un hijo para que el comando execvp no finalice el
+programa y en definitiva ejecutara el comando que le pedimos.*/
 
 void CrearProceso(char* argumento[MAX],int plano)
 
-{	/* INICIO DE LA FUNCI�N CrearProceso */
+{	/* INICIO DE LA FUNCION CrearProceso */
 	int estado=0;
 	pid_t hijo;
 	hijo=fork();
-/* Comprobamos si el hijo se cre� bien */
+/* Comprobamos si el hijo se crea bien */
 if (hijo==-1) printf("ERROR Creacion de proceso");
 else if (hijo==0) {
-			/* Y en caso de que el hijo est� bien creado, ejecutamos el proceso,
+			/* Y en caso de que el hijo esta bien creado, ejecutamos el proceso,
 			si el programa comando a ejecutar no existe, nos da un error.*/
 			execvp(argumento[0],argumento);
 			perror("JASHELL");
@@ -273,4 +273,4 @@ else  {
 		if (plano == 0) hijo=wait(&estado);
 		}
 
-} /* FIN DE LA FUNCI�N CrearProceso */
+} /* FIN DE LA FUNCION CrearProceso */
